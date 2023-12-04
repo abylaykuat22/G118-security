@@ -43,4 +43,8 @@ public class ItemController {
         return itemService.editMark(id, point);
     }
 
+    @PostMapping("/chaser/add")
+    public List<Item> addItemsFromChaser() {
+        return itemService.createAllItems();
+    }
 }

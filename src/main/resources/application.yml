@@ -9,3 +9,6 @@ spring:
     show-sql: true
 server:
   port: 8080
+
+chaser:
+  manager: http://localhost:8005/api/items

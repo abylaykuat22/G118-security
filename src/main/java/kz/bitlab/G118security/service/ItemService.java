@@ -1,16 +1,22 @@
 package kz.bitlab.G118security.service;
 
+import kz.bitlab.G118security.client.ChaserClient;
+import kz.bitlab.G118security.dto.ItemDto;
+import kz.bitlab.G118security.mapper.ItemMapper;
 import kz.bitlab.G118security.model.Item;
 import kz.bitlab.G118security.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ItemService {
     private final ItemRepository itemRepository;
+    private final ChaserClient chaserClient;
 
     public List<Item> getItems() {
         return itemRepository.findAll();
@@ -73,5 +79,14 @@ public class ItemService {
         item.setPoint(point);
         item.setMark(mark);
         return itemRepository.save(item);
+    }
+
+    public List<Item> createAllItems() {
+        log.info("Save items from chaser is started!");
+        List<ItemDto> dtoList = chaserClient.getItems();
+        List<Item> items = ItemMapper.INSTANCE.toEntityList(dtoList);
+        List<Item> itemsList = itemRepository.saveAll(items);
+        log.info("Items from chaser added successfully");
+        return itemsList;
     }
 }
