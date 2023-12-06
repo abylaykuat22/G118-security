@@ -57,4 +57,9 @@ public class HomeController {
     public void userReport() throws IOException {
         userService.generateUserReport();
     }
+
+    @GetMapping("/page-items")
+    public String itemsPage() {
+        return "items";
+    }
 }

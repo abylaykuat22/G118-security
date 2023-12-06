@@ -51,7 +51,7 @@ public class SecurityConfig {
                 .usernameParameter("username") // должен совпадать с input name="username";
                 .passwordParameter("password") // должен совпадать с input name="password";
                 .loginPage("/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/page-items", true)
                 .failureUrl("/login?error"));
 
         http.logout(lg -> lg.logoutUrl("/logout")
